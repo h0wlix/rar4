@@ -37,7 +37,9 @@ void read_headers(vector<char> data) {
 
         VolumeHeader* p_header = reinterpret_cast<VolumeHeader*>(&data[offset]); //перебор заголовков
         File_Head* f_header = reinterpret_cast<File_Head*>(&data[offset+7]); //начинаем считывать данные в структуру со второго заголовка
-
+        if ((p_header->header_type) != 0x74){
+            break;
+        }
 
         uint16_t fileName = int(f_header->NameSize); //узнаём размер названия заголовка
         uint16_t fileNameOffset = sizeof(struct File_Head) + offset + sizeof(struct VolumeHeader); //отступ файл нейма
